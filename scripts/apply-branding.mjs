@@ -49,14 +49,14 @@ write('vite.config.ts', vite);
 let zh = read('locales/zh.yml');
 zh = zh.replace("subtitle: '助力开发人员和 IT 工作者'", "subtitle: '极客工具箱 · 开发者效率工具'");
 zh = zh.replace("about: '关于 IT-Tools'", "about: '关于 ITJK'");
-zh = zh.replace(/about:\n  content: >\n[\s\S]*?\n404:/, `about:\n  content: >\n    # 关于 ITJK\n\n    **ITJK.com 极客工具箱**是一组面向开发者、运维工程师和 IT 从业者的在线工具。核心工具尽量在浏览器本地运行，不要求注册账号，也不依赖业务后台。\n\n    本站基于开源项目 IT-Tools 修改构建。原项目由 Corentin Thomasset 和社区贡献者维护，并以 GNU GPL-3.0 许可证发布。\n\n    ## 联系方式\n\n    邮箱：[6182768@qq.com](mailto:6182768@qq.com)\n\n    ## 隐私与使用\n\n    本站默认关闭统计追踪。多数转换、格式化、生成与解析操作在浏览器中完成。\n\n    ## 开源许可\n\n    本修改版本继续遵循 GNU GPL-3.0。\n\n404:`);
+zh = zh.replace(/about:\n  content: >\n[\s\S]*?\n404:/, `about:\n  content: >\n    # 关于 ITJK\n\n    **ITJK.com 极客工具箱**是一组面向开发者、运维工程师和 IT 从业者的在线工具。核心工具尽量在浏览器本地运行，不要求注册账号，也不依赖业务后台。\n\n    本站基于开源项目 IT-Tools 修改构建。原项目由 Corentin Thomasset 和社区贡献者维护，并以 GNU GPL-3.0 许可证发布。\n\n    ## 联系方式\n\n    邮箱：6182768{'@'}qq.com\n\n    ## 隐私与使用\n\n    本站默认关闭统计追踪。多数转换、格式化、生成与解析操作在浏览器中完成。\n\n    ## 开源许可\n\n    本修改版本继续遵循 GNU GPL-3.0。\n\n404:`);
 write('locales/zh.yml', zh);
 
 // English About page.
 let en = read('locales/en.yml');
 en = en.replace("subtitle: 'Handy tools for developers'", "subtitle: 'Developer toolbox · Fast, private, useful'");
 en = en.replace("about: 'About  IT-Tools'", "about: 'About ITJK'");
-en = en.replace(/about:\n  content: >\n[\s\S]*?\n404:/, `about:\n  content: >\n    # About ITJK\n\n    **ITJK.com** is a practical toolbox for developers, system engineers and people working in IT. Most tools run directly in your browser with no account and no application backend.\n\n    This site is a customized build based on the open-source IT-Tools project by Corentin Thomasset and its contributors.\n\n    ## Contact\n\n    Email: [6182768@qq.com](mailto:6182768@qq.com)\n\n    ## Privacy\n\n    Analytics are disabled by default in this build.\n\n    ## Open source\n\n    This modified version remains distributed under GNU GPL-3.0.\n\n404:`);
+en = en.replace(/about:\n  content: >\n[\s\S]*?\n404:/, `about:\n  content: >\n    # About ITJK\n\n    **ITJK.com** is a practical toolbox for developers, system engineers and people working in IT. Most tools run directly in your browser with no account and no application backend.\n\n    This site is a customized build based on the open-source IT-Tools project by Corentin Thomasset and its contributors.\n\n    ## Contact\n\n    Email: 6182768{'@'}qq.com\n\n    ## Privacy\n\n    Analytics are disabled by default in this build.\n\n    ## Open source\n\n    This modified version remains distributed under GNU GPL-3.0.\n\n404:`);
 write('locales/en.yml', en);
 
 // Remove links to the upstream IT-Tools GitHub project from every locale.
