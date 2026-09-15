@@ -9,7 +9,7 @@ function read(rel) { return fs.readFileSync(file(rel), 'utf8'); }
 function write(rel, value) { fs.writeFileSync(file(rel), value, 'utf8'); }
 function mustReplace(rel, find, replacement) {
   const current = read(rel);
-  const next = typeof find === 'string' ? current.replace(find, replacement) : current.replace(find, replacement);
+  const next = current.replace(find, replacement);
   if (next === current) throw new Error(`[ITJK] Patch did not match: ${rel}`);
   write(rel, next);
 }
@@ -24,10 +24,26 @@ function copyDir(src, dest) {
 }
 
 copyDir(overridesRoot, appRoot);
+
+// Default language: Simplified Chinese.
 mustReplace('src/plugins/i18n.plugin.ts', "locale: 'en',", "locale: 'zh',");
+
+// PWA metadata.
 mustReplace('vite.config.ts', "name: 'IT Tools',", "name: 'ITJK 极客工具箱',");
 mustReplace('vite.config.ts', "description: 'Aggregated set of useful tools for developers.',", "description: 'ITJK.com 极客工具箱：开发、编码、网络、加密、数据处理等实用工具。',");
 mustReplace('vite.config.ts', "lang: 'fr-FR',", "lang: 'zh-CN',");
+
+// Keep the repository text-only and use the ITJK SVG as the PWA icon.
+let vite = read('vite.config.ts');
+vite = vite.replace(/icons: \[\s\S]*?\n        \],/, `icons: [
+          {
+            src: '/itjk-icon.svg',
+            type: 'image/svg+xml',
+            sizes: 'any',
+            purpose: 'any maskable',
+          },
+        ],`);
+write('vite.config.ts', vite);
 
 let zh = read('locales/zh.yml');
 zh = zh.replace("subtitle: '助力开发人员和 IT 工作者'", "subtitle: '极客工具箱 · 开发者效率工具'");
