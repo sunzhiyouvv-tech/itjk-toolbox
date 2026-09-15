@@ -22,7 +22,7 @@ function onUpdateFavoriteTools() { toolStore.updateFavoriteTools(favoriteTools.v
   <div class="pt-24px md:pt-40px">
     <section class="itjk-hero">
       <div class="eyebrow">ITJK.COM · DEVELOPER TOOLBOX</div>
-      <h1>极客工具箱</h1>
+      <h1>极客工具箱 <span class="hero-domain">itjk.com</span></h1>
       <p>开发 · 编码 · 网络 · 加密 · 数据处理</p>
       <div class="chips">
         <span>无需注册</span><span>浏览器优先</span><span>开源构建</span><span>深浅主题</span>
@@ -62,6 +62,7 @@ function onUpdateFavoriteTools() { toolStore.updateFavoriteTools(favoriteTools.v
 .itjk-hero::after { content:'ITJK'; position:absolute; right:24px; top:-18px; font-size:118px; font-weight:900; letter-spacing:-.06em; opacity:.035; pointer-events:none; }
 .eyebrow { font-size:12px; font-weight:700; letter-spacing:.17em; color:#18a058; }
 h1 { margin:7px 0 4px; font-size:clamp(34px,6vw,58px); line-height:1.05; letter-spacing:-.04em; }
+.hero-domain { display:inline-block; margin-left:10px; color:#18a058; font-size:.34em; font-weight:700; letter-spacing:.02em; vertical-align:middle; white-space:nowrap; }
 .itjk-hero p { margin:0; opacity:.68; font-size:15px; }
 .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
 .chips span { border:1px solid rgba(127,127,127,.22); border-radius:999px; padding:5px 10px; font-size:12px; opacity:.76; }
@@ -69,5 +70,5 @@ h1 { margin:7px 0 4px; font-size:clamp(34px,6vw,58px); line-height:1.05; letter-
 .height-enter-from,.height-leave-to { max-height:42px; overflow:hidden; opacity:0; margin-bottom:0; }
 .ghost-favorites-draggable { opacity:.4; background-color:#ccc; border:2px dashed #666; box-shadow:0 0 10px rgba(0,0,0,.2); transform:scale(1.1); animation:ghost-favorites-draggable-animation .2s ease-out; }
 @keyframes ghost-favorites-draggable-animation { 0% { opacity:0; transform:scale(.9) } 100% { opacity:.4; transform:scale(1) } }
-@media (max-width:640px) { .itjk-hero { padding:26px 20px; border-radius:14px; } .itjk-hero::after { font-size:82px; right:8px; } }
+@media (max-width:640px) { .itjk-hero { padding:26px 20px; border-radius:14px; } .itjk-hero::after { font-size:82px; right:8px; } .hero-domain { margin-left:6px; font-size:.30em; } }
 </style>

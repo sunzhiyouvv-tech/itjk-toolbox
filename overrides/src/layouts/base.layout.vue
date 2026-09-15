@@ -14,8 +14,6 @@ import CollapsibleToolMenu from '@/components/CollapsibleToolMenu.vue';
 
 const themeVars = useThemeVars();
 const styleStore = useStyleStore();
-const version = config.app.version;
-const commitSha = config.app.lastCommitSha.slice(0, 7);
 const { t } = useI18n();
 const toolStore = useToolStore();
 const { favoriteTools, toolsByCategory } = storeToRefs(toolStore);
@@ -33,6 +31,7 @@ const tools = computed<ToolCategory[]>(() => [
         <HeroGradient class="gradient" />
         <div class="text-wrapper">
           <div class="title">ITJK</div>
+          <div class="domain">itjk.com</div>
           <div class="divider" />
           <div class="subtitle">{{ $t('home.subtitle') }}</div>
         </div>
@@ -48,11 +47,7 @@ const tools = computed<ToolCategory[]>(() => [
 
         <div class="footer">
           <div class="brand">ITJK.com</div>
-          <div>
-            <c-link target="_blank" rel="noopener" href="https://github.com/CorentinTh/it-tools">基于 IT-Tools</c-link>
-            · GPL-3.0
-          </div>
-          <div v-if="version">Upstream v{{ version }}<template v-if="commitSha"> · {{ commitSha }}</template></div>
+          <div>基于 IT-Tools · GPL-3.0</div>
           <div>© {{ new Date().getFullYear() }} ITJK</div>
         </div>
       </div>
@@ -81,11 +76,12 @@ const tools = computed<ToolCategory[]>(() => [
 <style lang="less" scoped>
 .footer { text-align:center; color:#838587; margin-top:20px; padding:20px 0; font-size:12px; line-height:1.8; }
 .footer .brand { color:v-bind('themeVars.primaryColor'); font-weight:700; font-size:14px; letter-spacing:.08em; }
-.sider-content { padding-top:160px; padding-bottom:200px; }
+.sider-content { padding-top:170px; padding-bottom:200px; }
 .hero-wrapper { position:absolute; display:block; left:0; width:100%; z-index:10; overflow:hidden; }
 .hero-wrapper .gradient { margin-top:-65px; }
-.hero-wrapper .text-wrapper { position:absolute; left:0; width:100%; text-align:center; top:16px; color:#fff; }
-.hero-wrapper .title { font-size:30px; font-weight:800; letter-spacing:.16em; }
-.hero-wrapper .divider { width:56px; height:2px; border-radius:4px; background-color:v-bind('themeVars.primaryColor'); margin:1px auto 5px; }
+.hero-wrapper .text-wrapper { position:absolute; left:0; width:100%; text-align:center; top:10px; color:#fff; }
+.hero-wrapper .title { font-size:28px; font-weight:800; letter-spacing:.16em; line-height:1.05; }
+.hero-wrapper .domain { margin-top:3px; font-size:12px; font-weight:700; letter-spacing:.14em; opacity:.92; }
+.hero-wrapper .divider { width:56px; height:2px; border-radius:4px; background-color:v-bind('themeVars.primaryColor'); margin:6px auto 5px; }
 .hero-wrapper .subtitle { font-size:13px; opacity:.92; }
 </style>
