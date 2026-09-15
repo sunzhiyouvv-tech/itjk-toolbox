@@ -1,0 +1,5 @@
+ITJK.com 极客工具箱
+Customized build based on CorentinTh/it-tools.
+Upstream: https://github.com/CorentinTh/it-tools
+License: GNU GPL-3.0
+Modification date: 2026-09-15
