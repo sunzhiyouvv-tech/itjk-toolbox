@@ -1,0 +1,91 @@
+<script lang="ts" setup>
+import { NIcon, useThemeVars } from 'naive-ui';
+import { RouterLink } from 'vue-router';
+import { Home2, Menu2 } from '@vicons/tabler';
+import { storeToRefs } from 'pinia';
+import HeroGradient from '../assets/hero-gradient.svg?component';
+import MenuLayout from '../components/MenuLayout.vue';
+import NavbarButtons from '../components/NavbarButtons.vue';
+import { useStyleStore } from '@/stores/style.store';
+import { config } from '@/config';
+import type { ToolCategory } from '@/tools/tools.types';
+import { useToolStore } from '@/tools/tools.store';
+import CollapsibleToolMenu from '@/components/CollapsibleToolMenu.vue';
+
+const themeVars = useThemeVars();
+const styleStore = useStyleStore();
+const version = config.app.version;
+const commitSha = config.app.lastCommitSha.slice(0, 7);
+const { t } = useI18n();
+const toolStore = useToolStore();
+const { favoriteTools, toolsByCategory } = storeToRefs(toolStore);
+
+const tools = computed<ToolCategory[]>(() => [
+  ...(favoriteTools.value.length > 0 ? [{ name: t('tools.categories.favorite-tools'), components: favoriteTools.value }] : []),
+  ...toolsByCategory.value,
+]);
+</script>
+
+<template>
+  <MenuLayout class="menu-layout" :class="{ isSmallScreen: styleStore.isSmallScreen }">
+    <template #sider>
+      <RouterLink to="/" class="hero-wrapper">
+        <HeroGradient class="gradient" />
+        <div class="text-wrapper">
+          <div class="title">ITJK</div>
+          <div class="divider" />
+          <div class="subtitle">{{ $t('home.subtitle') }}</div>
+        </div>
+      </RouterLink>
+
+      <div class="sider-content">
+        <div v-if="styleStore.isSmallScreen" flex flex-col items-center>
+          <locale-selector w="90%" />
+          <div flex justify-center><NavbarButtons /></div>
+        </div>
+
+        <CollapsibleToolMenu :tools-by-category="tools" />
+
+        <div class="footer">
+          <div class="brand">ITJK.com</div>
+          <div>
+            <c-link target="_blank" rel="noopener" href="https://github.com/CorentinTh/it-tools">基于 IT-Tools</c-link>
+            · GPL-3.0
+          </div>
+          <div v-if="version">Upstream v{{ version }}<template v-if="commitSha"> · {{ commitSha }}</template></div>
+          <div>© {{ new Date().getFullYear() }} ITJK</div>
+        </div>
+      </div>
+    </template>
+
+    <template #content>
+      <div flex items-center justify-center gap-2>
+        <c-button circle variant="text" :aria-label="$t('home.toggleMenu')" @click="styleStore.isMenuCollapsed = !styleStore.isMenuCollapsed">
+          <NIcon size="25" :component="Menu2" />
+        </c-button>
+        <c-tooltip :tooltip="$t('home.home')" position="bottom">
+          <c-button to="/" circle variant="text" :aria-label="$t('home.home')"><NIcon size="25" :component="Home2" /></c-button>
+        </c-tooltip>
+        <c-tooltip :tooltip="$t('home.uiLib')" position="bottom">
+          <c-button v-if="config.app.env === 'development'" to="/c-lib" circle variant="text" :aria-label="$t('home.uiLib')"><icon-mdi:brush-variant text-20px /></c-button>
+        </c-tooltip>
+        <command-palette />
+        <locale-selector v-if="!styleStore.isSmallScreen" />
+        <div><NavbarButtons v-if="!styleStore.isSmallScreen" /></div>
+      </div>
+      <slot />
+    </template>
+  </MenuLayout>
+</template>
+
+<style lang="less" scoped>
+.footer { text-align:center; color:#838587; margin-top:20px; padding:20px 0; font-size:12px; line-height:1.8; }
+.footer .brand { color:v-bind('themeVars.primaryColor'); font-weight:700; font-size:14px; letter-spacing:.08em; }
+.sider-content { padding-top:160px; padding-bottom:200px; }
+.hero-wrapper { position:absolute; display:block; left:0; width:100%; z-index:10; overflow:hidden; }
+.hero-wrapper .gradient { margin-top:-65px; }
+.hero-wrapper .text-wrapper { position:absolute; left:0; width:100%; text-align:center; top:16px; color:#fff; }
+.hero-wrapper .title { font-size:30px; font-weight:800; letter-spacing:.16em; }
+.hero-wrapper .divider { width:56px; height:2px; border-radius:4px; background-color:v-bind('themeVars.primaryColor'); margin:1px auto 5px; }
+.hero-wrapper .subtitle { font-size:13px; opacity:.92; }
+</style>
