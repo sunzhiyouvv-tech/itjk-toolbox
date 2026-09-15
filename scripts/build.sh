@@ -18,8 +18,12 @@ printf '%s\n' "[ITJK] Applying branding and Chinese defaults..."
 node "$ROOT_DIR/scripts/apply-branding.mjs" "$WORK_DIR" "$ROOT_DIR/overrides"
 
 cd "$WORK_DIR"
-corepack enable
-corepack prepare "pnpm@${PNPM_VERSION}" --activate
+if command -v corepack >/dev/null 2>&1; then
+  corepack enable
+  corepack prepare "pnpm@${PNPM_VERSION}" --activate
+else
+  npm install -g "pnpm@${PNPM_VERSION}"
+fi
 pnpm install --frozen-lockfile
 VITE_TRACKER_ENABLED=false \
 VITE_SHOW_BANNER=false \
