@@ -2,6 +2,7 @@
   "buildCommand": "sh scripts/build.sh",
   "outputDirectory": "dist",
   "framework": null,
+  "alias": ["t.itjk.com"],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
