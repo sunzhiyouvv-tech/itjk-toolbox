@@ -18,18 +18,19 @@ printf '%s\n' "[ITJK] Applying branding and Chinese defaults..."
 node "$ROOT_DIR/scripts/apply-branding.mjs" "$WORK_DIR" "$ROOT_DIR/overrides"
 
 cd "$WORK_DIR"
-if command -v corepack >/dev/null 2>&1; then
-  corepack enable
-  corepack prepare "pnpm@${PNPM_VERSION}" --activate
-else
-  npm install -g "pnpm@${PNPM_VERSION}"
-fi
-pnpm install --frozen-lockfile
+
+printf '%s\n' "[ITJK] Using pnpm ${PNPM_VERSION} explicitly..."
+npx --yes "pnpm@${PNPM_VERSION}" --version
+
+printf '%s\n' "[ITJK] Installing dependencies with frozen lockfile..."
+npx --yes "pnpm@${PNPM_VERSION}" install --frozen-lockfile
+
+printf '%s\n' "[ITJK] Building production bundle..."
 VITE_TRACKER_ENABLED=false \
 VITE_SHOW_BANNER=false \
 VITE_SHOW_SPONSOR_BANNER=false \
 VITE_VERCEL_ENV=production \
-pnpm build
+npx --yes "pnpm@${PNPM_VERSION}" build
 
 cp -R "$WORK_DIR/dist" "$ROOT_DIR/dist"
 printf '%s\n' "[ITJK] Build complete: $ROOT_DIR/dist"
