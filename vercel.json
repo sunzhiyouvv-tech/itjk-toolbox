@@ -1,0 +1,8 @@
+{
+  "buildCommand": "sh scripts/build.sh",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
